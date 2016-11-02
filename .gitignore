@@ -1,0 +1,9 @@
+build
+node_modules
+dist
+bower_components
+.tmp
+.publish/
+npm-debug.log
+.DS_Store
+app/config.json

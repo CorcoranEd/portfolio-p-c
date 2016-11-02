@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="project-list">
+	<template>
+		<iron-ajax auto url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
+		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
+		</epic-contentful>
+		<template is="dom-repeat" items="[[projects.items]]">
+			<img src="[[item.fields.heroImage.fields.file.url]]" />
+			<div>[[item.fields.title]]</div>
+		</template>
+	</template>
+	<script>
+	Polymer({
+		is: 'project-list',
+		properties: {
+			config: {
+				type: Object,
+			},
+			projects: {
+				type: Object,
+			},
+		},
+		observers: [
+			"projectOutput(projects.*)"
+		],
+		projectOutput: function() {
+			console.log(this.projects);
+		}
+	});
+	</script>
+</dom-module>
