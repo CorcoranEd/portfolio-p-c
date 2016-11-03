@@ -10,18 +10,21 @@
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-
 			margin-left: 0;
 			list-style: none;
 		}
 
 		li {
 			flex: 1;
-			margin-bottom: var(--spacing-unit);
 		}
 
 		li:nth-child(n+2) {
 			margin-left: var(--spacing-unit);
+			margin-bottom: var(--spacing-unit);
+		}
+
+		li:nth-last-child(2) {
+			margin-bottom: 0 !important;
 		}
 		</style>
 		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
@@ -31,7 +34,7 @@
 			<ul>
 				<template is="dom-repeat" items="[[projects.items]]">
 					<li>
-						<a class="project-link" href="/">
+						<a class="project-link" href="/[[item.fields.slug]]">
 							<img src="[[item.fields.heroImage.fields.file.url]]" />
 							<div>[[item.fields.title]]</div>
 						</a>

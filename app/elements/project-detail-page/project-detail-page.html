@@ -1,0 +1,140 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="project-detail-page">
+	<template>
+		<style include="shared-styles">
+		:root {}
+
+
+
+		.project-header {
+			text-align: center;
+			margin-top: 100px;
+			margin-bottom: var(--spacing-unit);
+		}
+
+		.project-title {
+			font-size: 42px;
+			letter-spacing: -1px;
+			line-height: 1;
+		}
+
+		.project-type {
+			font-size: var(--small-font-size);
+			margin-bottom: .5em;
+		}
+
+		.project-role {
+			font-size: var(--small-font-size);
+			color: var(--grey-color);
+		}
+
+		.project-details {
+			margin: 6.25em 0;
+			display: flex;
+			flex-direction: row;
+		}
+
+		.project-lists,
+		.project-status {
+			flex: 1;
+		}
+
+		.project-lists,
+		.project-copy {
+			margin-right: calc(var(--spacing-unit) * 2);
+		}
+
+		ul {
+			margin-left: 0;
+			list-style: none;
+		}
+
+		li {
+			color: var(--grey-color);
+		}
+
+		.project-status {
+			flex: 1;
+			font-size: 1.4em;
+		}
+
+		a {
+			color: var(--grey-color);
+		}
+
+		a[href] {
+			color: var(--main-color);
+		}
+
+		.project-copy {
+			flex: 3;
+		}
+
+		.first {
+			font-size: 1.875em;
+			line-height: 1.5em;
+			margin-bottom: calc(var(--spacing-unit) / 2);
+		}
+		</style>
+		<site-header config="[[config]]"></site-header>
+		<div class="wrapper">
+			<header class="project-header">
+				<h1 class="project-title">[[project.fields.title]]</h1>
+				<p class="project-type">[[project.fields.type]]</p>
+				<p class="project-role">[[project.fields.role]]</p>
+			</header>
+			<img class="project-hero-image" src="[[project.fields.heroImage.fields.file.url]]" />
+			<div class="project-details">
+				<div class="project-lists">
+					<template is="dom-if" if="[[project.fields.responsibilities]]">
+						<ul>
+							Responsibilities
+							<template items="[[project.fields.responsibilities]]" is="dom-repeat">
+								<li>[[item]]</li>
+							</template>
+						</ul>
+					</template>
+					<template is="dom-if" if="[[project.fields.deliverables]]">
+						<ul>
+							Deliverables
+							<template items="[[project.fields.deliverables]]" is="dom-repeat">
+								<li>[[item]]</li>
+							</template>
+						</ul>
+					</template>
+					<template is="dom-if" if="[[project.fields.experience]]">
+						<ul>
+							Experience
+							<template items="[[project.fields.experience]]" is="dom-repeat">
+								<li>[[item]]</li>
+							</template>
+						</ul>
+					</template>
+				</div>
+				<div class="project-copy">
+					<p class="first">[[project.fields.caption]]</p>
+					<p>[[project.fields.body]]</p>
+				</div>
+				<div class="project-status">
+					<template is="dom-if" if="[[project.fields.status]]">
+						<a href$="[[project.fields.link]]">[[project.fields.status]]</a>
+					</template>
+				</div>
+			</div>
+		</div>
+		<site-footer config="[[config]]"></site-footer>
+	</template>
+	<script>
+	Polymer({
+		is: 'project-detail-page',
+		properties: {
+			config: {
+				type: Object,
+			},
+			project: {
+				type: Object,
+			},
+		},
+	});
+	</script>
+</dom-module>

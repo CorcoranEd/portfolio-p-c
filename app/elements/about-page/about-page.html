@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="about-page">
+	<template>
+		<style include="shared-styles">
+		:root {}
+		</style>
+		<site-header config="[[config]]"></site-header>
+		<div class="wrapper">
+			<marked-element markdown="[[config.site.about]]">
+				<div class="markdown-html"></div>
+			</marked-element>
+		</div>
+		<site-footer config="[[config]]"></site-footer>
+	</template>
+	<script>
+	Polymer({
+		is: 'about-page',
+		properties: {
+			config: {
+				type: Object,
+			},
+		},
+	});
+	</script>
+</dom-module>
