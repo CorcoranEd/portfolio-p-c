@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="site-footer">
+	<template>
+		<style include="shared-styles">
+		:root {
+			margin: var(--spacing-unit) 0 calc(var(--spacing-unit) * 2) 0;
+		}
+
+		.footer-content {
+			display: flex;
+
+			flex-direction: row;
+		}
+
+		.back-to-top {
+			margin-right: var(--spacing-unit);
+		}
+
+		.contact-info {
+			flex: 1;
+			margin-right: var(--spacing-unit);
+		}
+
+		.copyright {
+			flex: 1;
+			color: var(--grey-color);
+			text-align: right;
+		}
+
+		.copyright a {
+			color: var(--grey-color-dark);
+		}
+		</style>
+		<div class="wrapper">
+			<div class="footer-content">
+				<div class="back-to-top"><a href="#top">Back to top</a></div>
+				<div class="contact-info">
+					Like what you see? <br> If you’re interested in working together or want to say hello, shoot me an email at <a href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">[[config.site.author.email]]</a>
+				</div>
+				<div class="copyright">
+					Designed and built by me using <a href="https://www.polymer-project.org/1.0/">Polymer</a> &amp; <a href="https://www.contentful.com">Contentful</a>
+					<br>Copyright &copy; 2016 Ed Corcoran
+				</div>
+			</div>
+		</div>
+	</template>
+	<script>
+	Polymer({
+		is: 'site-footer',
+		properties: {
+			config: {
+				type: Object,
+			},
+		},
+		observers: []
+	});
+	</script>
+</dom-module>

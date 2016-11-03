@@ -1,13 +1,44 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <dom-module id="project-list">
 	<template>
-		<iron-ajax auto url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
+		<style include="shared-styles">
+		:root {
+			text-align: center;
+		}
+
+		ul {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+
+			margin-left: 0;
+			list-style: none;
+		}
+
+		li {
+			flex: 1;
+			margin-bottom: var(--spacing-unit);
+		}
+
+		li:nth-child(n+2) {
+			margin-left: var(--spacing-unit);
+		}
+		</style>
 		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
 		</epic-contentful>
-		<template is="dom-repeat" items="[[projects.items]]">
-			<img src="[[item.fields.heroImage.fields.file.url]]" />
-			<div>[[item.fields.title]]</div>
-		</template>
+		<div class="wrapper">
+			<h1 class="project-title">Projects</h1>
+			<ul>
+				<template is="dom-repeat" items="[[projects.items]]">
+					<li>
+						<a class="project-link" href="/">
+							<img src="[[item.fields.heroImage.fields.file.url]]" />
+							<div>[[item.fields.title]]</div>
+						</a>
+					</li>
+				</template>
+			</ul>
+		</div>
 	</template>
 	<script>
 	Polymer({

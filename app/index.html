@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="generator" content="Polymer Starter Kit">
-	<title>title</title>
+	<title>Ed Corcoran — Portfolio</title>
 	<!-- Place favicon.ico in the `app/` directory -->
 	<!-- Chrome for Android theme color -->
 	<meta name="theme-color" content="#2E3AA1">
@@ -46,7 +46,10 @@
 		LOADING
 	</div>
 	<template is="dom-bind" id="app" unresolved>
-		<project-list></project-list>
+		<iron-ajax auto url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
+		<site-header config="[[config]]"></site-header>
+		<project-list config="[[config]]"></project-list>
+		<site-footer config="[[config]]"></site-footer>
 	</template>
 	<!-- build:js scripts/app.js -->
 	<script src="scripts/app.js"></script>
