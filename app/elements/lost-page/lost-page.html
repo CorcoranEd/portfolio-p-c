@@ -3,9 +3,13 @@
 	<template>
 		<style include="shared-styles">
 		:root {}
+
+		.copy {
+			text-align: center;
+		}
 		</style>
 		<site-header config="[[config]]"></site-header>
-		<div class="wrapper">
+		<div class="wrapper copy">
 			<marked-element markdown="[[config.site.lost]]">
 				<div class="markdown-html"></div>
 			</marked-element>
