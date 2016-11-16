@@ -16,3 +16,12 @@ mapping['/components/' + rootPath +
 ret.webserver.pathMappings.push(mapping);
 
 module.exports = ret;
+
+{
+  "verbose": true,
+  "plugins": {
+    "local": {
+      "browsers": ["chrome", "safari"]
+    }
+  }
+}
