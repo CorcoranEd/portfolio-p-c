@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="project-nav">
+	<template>
+		<style include="shared-styles">
+		:root {}
+		
+		nav {
+			display: flex;
+			flex-direction: row;
+		}
+		
+		.prev,
+		.next {
+			flex: 1;
+			font-size: var(--small-font-size);
+		}
+		
+		.next {
+			text-align: right;
+		}
+		</style>
+		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
+		</epic-contentful>
+		<nav>
+			<a class="prev" href="/{{prev.fields.slug}}">&laquo; {{prev.fields.title}}</a>
+			<a class="next" href="/{{next.fields.slug}}">{{next.fields.title}} &raquo;</a>
+		</nav>
+	</template>
+	<script>
+	Polymer({
+		is: 'project-nav',
+		properties: {
+			config: {
+				type: Object,
+			},
+			projects: {
+				type: Object,
+			},
+			project: {
+				type: Object,
+			},
+			next: {
+				type: Object,
+			},
+			prev: {
+				type: Object,
+			}
+		},
+		observers: [
+			"projectOutput(projects.*)"
+		],
+		setPrevNext: function(item, index) {
+			var next = {};
+			var prev = {};
+			if (item.fields.slug === this.project.fields.slug) {
+				next = (index === this.projects.items.length - 1) ? this.projects.items[0] : this.projects.items[index + 1];
+				prev = (index === 0) ? this.projects.items[this.projects.items.length - 1] : this.projects.items[index - 1];
+				this.set('next', next);
+				this.set('prev', prev);
+			}
+		},
+		projectOutput: function() {
+			if (this.projects.items) {
+				this.projects.items.forEach(this.setPrevNext, this)
+			}
+		}
+	});
+	</script>
+</dom-module>

@@ -6,11 +6,22 @@
 			text-align: center;
 		}
 
+		.project-header {
+			text-align: center;
+			margin-top: 6.25em;
+			margin-bottom: var(--spacing-unit);
+		}
+
+		.project-title {
+			letter-spacing: -1px;
+			line-height: 1;
+		}
+
 		ul {
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			margin-left: 0;
+			margin: 6.25em 0;
 			list-style: none;
 		}
 
@@ -31,7 +42,9 @@
 		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
 		</epic-contentful>
 		<div class="wrapper">
-			<h1 class="project-title">Projects</h1>
+			<header class="project-header">
+				<h1 class="project-title">Projects</h1>
+			</header>
 			<ul>
 				<template is="dom-repeat" items="[[projects.items]]">
 					<li>
@@ -59,7 +72,7 @@
 			"projectOutput(projects.*)"
 		],
 		projectOutput: function() {
-			console.log(this.projects);
+			// console.log(this.projects);
 		}
 	});
 	</script>

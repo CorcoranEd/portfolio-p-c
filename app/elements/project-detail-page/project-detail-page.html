@@ -3,71 +3,70 @@
 	<template>
 		<style include="shared-styles">
 		:root {}
-
+		
 		.project-header {
 			text-align: center;
-			margin-top: 100px;
+			margin-top: 6.25em;
 			margin-bottom: var(--spacing-unit);
 		}
-
+		
 		.project-title {
-			font-size: 42px;
 			letter-spacing: -1px;
 			line-height: 1;
 		}
-
+		
 		.project-type {
 			font-size: var(--small-font-size);
 			margin-bottom: .5em;
 		}
-
+		
 		.project-role {
 			font-size: var(--small-font-size);
 			color: var(--grey-color);
 		}
-
+		
 		.project-details {
 			margin: 6.25em 0;
 			display: flex;
 			flex-direction: row;
 		}
-
+		
 		.project-lists,
 		.project-status {
 			flex: 1;
 		}
-
+		
 		.project-lists,
 		.project-copy {
 			margin-right: calc(var(--spacing-unit) * 2);
 		}
-
+		
 		ul {
 			margin-left: 0;
 			list-style: none;
 		}
-
+		
 		li {
 			color: var(--grey-color);
 		}
-
+		
 		.project-status {
 			flex: 1;
 			font-size: 1.4em;
 		}
-
+		
 		a {
 			color: var(--grey-color);
 		}
-
+		
 		a[href] {
 			color: var(--main-color);
 		}
-
+		
 		.project-copy {
 			flex: 3;
 		}
-
+		
 		.first {
 			font-size: 1.875em;
 			line-height: 1.5em;
@@ -81,6 +80,7 @@
 				<p class="project-type">[[project.fields.type]]</p>
 				<p class="project-role">[[project.fields.role]]</p>
 			</header>
+			<project-nav config="[[config]]" project="[[project]]"></project-nav>
 			<img class="project-hero-image" src="[[project.fields.heroImage.fields.file.url]]" />
 			<div class="project-details">
 				<div class="project-lists">
@@ -119,6 +119,7 @@
 					</template>
 				</div>
 			</div>
+			<project-nav config="[[config]]" project="[[project]]"></project-nav>
 		</div>
 		<site-footer config="[[config]]"></site-footer>
 	</template>
