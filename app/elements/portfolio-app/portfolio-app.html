@@ -8,14 +8,15 @@
 		<app-location
 			route="{{route}}"
 		></app-location>
+
 		<app-route
 			route="{{route}}"
 			pattern="/:page"
-			data="{{data}}"
+			data="{{pageData}}"
 		></app-route>
 
 		<app-scrollpos-control
-			selected="{{data.page}}"
+			selected="{{pageData.page}}"
 		></app-scrollpos-control>
 
 		<iron-ajax
@@ -33,7 +34,7 @@
 			mode="entries"
 		></epic-contentful>
 
-		<iron-pages attr-for-selected="id" selected="{{data.page}}">
+		<iron-pages attr-for-selected="id" selected="{{pageData.page}}">
 
 			<project-list-page
 				class="page-wrapper"
@@ -70,13 +71,18 @@
 			projects: {
 				type: Object,
 			},
-			data: {
+			pageData: {
 				type: Object,
 			},
 			route: {
 				type: Object,
 			}
 		},
+		attached: function() {
+			if (!this.route.path) {
+				this.set('route.path', '/')
+			}
+		}
 	});
 	</script>
 </dom-module>
