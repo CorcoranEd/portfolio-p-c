@@ -8465,6 +8465,56 @@ this.fire('dom-change');
 		</style>
 	</template>
 </dom-module>
+<dom-module id="portfolio-app" assetpath="portfolio-app/">
+	<template>
+		<style include="shared-styles">
+		:root {}
+		</style>
+
+		<app-location route="{{route}}"></app-location>
+		<app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
+
+		<app-scrollpos-control selected="{{data.page}}"></app-scrollpos-control>
+
+		<iron-ajax auto="" url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
+
+		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries"></epic-contentful>
+
+		<iron-pages attr-for-selected="id" selected="{{data.page}}">
+
+			<project-list-page class="page-wrapper" config="[[config]]"></project-list-page>
+
+			<template is="dom-repeat" items="[[projects.items]]">
+
+				<project-detail-page id="[[item.fields.slug]]" class="page-wrapper" config="[[config]]" project="[[item]]"></project-detail-page>
+
+			</template>
+
+			<about-page id="about" class="page-wrapper" config="[[config]]"></about-page>
+
+		</iron-pages>
+
+	</template>
+	<script>
+	Polymer({
+		is: 'portfolio-app',
+		properties: {
+			config: {
+				type: Object,
+			},
+			projects: {
+				type: Object,
+			},
+			data: {
+				type: Object,
+			},
+			route: {
+				type: Object,
+			}
+		},
+	});
+	</script>
+</dom-module>
 <dom-module id="site-header" assetpath="site-header/">
 	<template>
 		<style include="shared-styles">
