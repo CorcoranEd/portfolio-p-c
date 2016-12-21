@@ -1,0 +1,1 @@
+!function(e){"use strict";var n=e.getElementById("app");n.addEventListener("dom-change",function(){var n=e.getElementById("splash");n.className="remove",setTimeout(function(){n.parentNode.removeChild(n)},500)}),window.addEventListener("WebComponentsReady",function(){})}(document);
