@@ -8472,15 +8472,16 @@ this.fire('dom-change');
 		</style>
 
 		<app-location route="{{route}}"></app-location>
-		<app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
 
-		<app-scrollpos-control selected="{{data.page}}"></app-scrollpos-control>
+		<app-route route="{{route}}" pattern="/:page" data="{{pageData}}"></app-route>
+
+		<app-scrollpos-control selected="{{pageData.page}}"></app-scrollpos-control>
 
 		<iron-ajax auto="" url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
 
 		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries"></epic-contentful>
 
-		<iron-pages attr-for-selected="id" selected="{{data.page}}">
+		<iron-pages attr-for-selected="id" selected="{{pageData.page}}">
 
 			<project-list-page class="page-wrapper" config="[[config]]"></project-list-page>
 
@@ -8505,13 +8506,18 @@ this.fire('dom-change');
 			projects: {
 				type: Object,
 			},
-			data: {
+			pageData: {
 				type: Object,
 			},
 			route: {
 				type: Object,
 			}
 		},
+		attached: function() {
+			if (!this.route.path) {
+				this.set('route.path', '/')
+			}
+		}
 	});
 	</script>
 </dom-module>
