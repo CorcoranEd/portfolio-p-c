@@ -1,0 +1,108 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="site-footer">
+	<template>
+		<style include="shared-styles">
+		:root {
+			margin: var(--spacing-unit) 0 calc(var(--spacing-unit) * 2) 0;
+		}
+		
+		.footer-content {
+			display: flex;
+			flex-direction: row;
+		}
+		
+		.back-to-top {
+			margin-right: var(--spacing-unit);
+		}
+		
+		.contact-info {
+			flex: 1;
+			margin-right: var(--spacing-unit);
+		}
+		
+		.copyright {
+			flex: 1;
+			color: var(--grey-color);
+			text-align: right;
+		}
+		
+		.copyright a {
+			color: var(--grey-color-dark);
+		}
+		</style>
+		<div class="wrapper">
+			<div class="footer-content">
+				<div class="back-to-top"><a on-tap="smoothScroll" title="app">Back to top</a></div>
+				<div class="contact-info">
+					Like what you see?
+					<br> If you’re interested in working together or want to say hello, shoot me an email at <a href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">[[config.site.author.email]]</a>
+				</div>
+				<div class="copyright">
+					Designed and built by me using <a href="https://www.polymer-project.org/1.0/">Polymer</a> &amp; <a href="https://www.contentful.com">Contentful</a>
+					<br>Copyright &copy; 2016 Ed Corcoran
+				</div>
+			</div>
+		</div>
+	</template>
+	<script>
+	Polymer({
+		is: 'site-footer',
+		properties: {
+			config: {
+				type: Object,
+			},
+		},
+		elmYPosition: function(eID) {
+			var elm = document.getElementById(eID);
+			var y = elm.offsetTop;
+			var node = elm;
+			while (node.offsetParent && node.offsetParent != document.body) {
+				node = node.offsetParent;
+				y += node.offsetTop;
+			}
+			return y;
+		},
+		currentYPosition: function() {
+			// Firefox, Chrome, Opera, Safari
+			if (self.pageYOffset) return self.pageYOffset;
+			// Internet Explorer 6 - standards mode
+			if (document.documentElement && document.documentElement.scrollTop)
+				return document.documentElement.scrollTop;
+			// Internet Explorer 6, 7 and 8
+			if (document.body.scrollTop) return document.body.scrollTop;
+			return 0;
+		},
+		smoothScroll: function(e) {
+			this.set("links", false);
+			var eID = e.target.title;
+			var startY = this.currentYPosition();
+			var stopY = this.elmYPosition(eID);
+			var distance = stopY > startY ? stopY - startY : startY - stopY;
+			if (distance < 100) {
+				scrollTo(0, stopY);
+				return;
+			}
+			var speed = Math.round(distance / 100);
+			if (speed >= 20) speed = 20;
+			var step = Math.round(distance / 25);
+			var leapY = stopY > startY ? startY + step : startY - step;
+			var timer = 0;
+			if (stopY > startY) {
+				for (var i = startY; i < stopY; i += step) {
+					setTimeout("window.scrollTo(0, " + leapY + ")", timer * speed);
+					leapY += step;
+					if (leapY > stopY) leapY = stopY;
+					timer++;
+				}
+				return;
+			}
+			for (var i = startY; i > stopY; i -= step) {
+				setTimeout("window.scrollTo(0, " + leapY + ")", timer * speed);
+				leapY -= step;
+				if (leapY < stopY) leapY = stopY;
+				timer++;
+			}
+		},
+	});
+	</script>
+</dom-module>

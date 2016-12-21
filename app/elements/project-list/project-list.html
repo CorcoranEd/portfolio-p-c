@@ -1,13 +1,61 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <dom-module id="project-list">
 	<template>
-		<iron-ajax auto url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
+		<style include="shared-styles">
+		:root {
+			text-align: center;
+		}
+
+		.project-header {
+			text-align: center;
+			margin-top: 6.25em;
+			margin-bottom: var(--spacing-unit);
+		}
+
+		.project-title {
+			letter-spacing: -1px;
+			line-height: 1;
+		}
+
+		ul {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			margin: 6.25em 0;
+			list-style: none;
+		}
+
+		li {
+			flex: 1 45%;
+			flex-wrap: wrap;
+		}
+
+		li:nth-child(2n+0) {
+			margin-left: var(--spacing-unit);
+			margin-bottom: var(--spacing-unit);
+		}
+
+		li:nth-last-child(2) {
+			margin-bottom: 0 !important;
+		}
+		</style>
 		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
 		</epic-contentful>
-		<template is="dom-repeat" items="[[projects.items]]">
-			<img src="[[item.fields.heroImage.fields.file.url]]" />
-			<div>[[item.fields.title]]</div>
-		</template>
+		<div class="wrapper">
+			<header class="project-header">
+				<h1 class="project-title">Projects</h1>
+			</header>
+			<ul>
+				<template is="dom-repeat" items="[[projects.items]]">
+					<li>
+						<a class="project-link" href="/[[item.fields.slug]]">
+							<img src="[[item.fields.heroImage.fields.file.url]]" />
+							<div>[[item.fields.title]]</div>
+						</a>
+					</li>
+				</template>
+			</ul>
+		</div>
 	</template>
 	<script>
 	Polymer({
@@ -24,7 +72,7 @@
 			"projectOutput(projects.*)"
 		],
 		projectOutput: function() {
-			console.log(this.projects);
+			// console.log(this.projects);
 		}
 	});
 	</script>

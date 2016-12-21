@@ -1,0 +1,74 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="site-header">
+	<template>
+		<style include="shared-styles">
+		:root {
+			padding-top: var(--spacing-unit);
+			margin-bottom: var(--spacing-unit);
+			height: var(--spacing-unit);
+		}
+		
+		#ec-logo {
+			width: var(--spacing-unit);
+			height: auto;
+			margin-right: calc((var(--spacing-unit) / 3) * 2);
+			float: left;
+		}
+		
+		.site-title {
+			line-height: var(--spacing-unit);
+			margin-bottom: 0;
+			float: left;
+		}
+		
+		.site-title:visited {
+			color: var(--grey-color-dark);
+		}
+		
+		.site-nav {
+			float: right;
+			line-height: var(--spacing-unit);
+		}
+		
+		.page-link {
+			line-height: var(--base-line-height);
+		}
+		
+		.page-link:not(:last-child) {
+			margin-right: calc((var(--spacing-unit) / 3) * 2);
+		}
+		</style>
+		<div class="wrapper">
+			<a href="/">
+				<svg id="ec-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100.01">
+					<defs>
+						<style>
+						.cls-1 {
+							fill: #00d4b7;
+						}
+						</style>
+					</defs>
+					<title>ec</title>
+					<path class="cls-1" d="M670.73,409A32.38,32.38,0,0,1,640,432a32,32,0,1,1,15.34-60.08l13.07-13.07A50,50,0,1,0,640,450a50.3,50.3,0,0,0,49.18-41H670.73Z" transform="translate(-590.03 -349.99)" />
+					<path d="M668.44,358.85l-13.07,13.06A32.15,32.15,0,0,1,670.73,391H609.33a31.87,31.87,0,0,0,0,18H689.2a51,51,0,0,0,.82-9A49.94,49.94,0,0,0,668.44,358.85Z" transform="translate(-590.03 -349.99)" />
+				</svg>
+			</a>
+			<a class="site-title" href="/">[[config.site.name]]</a>
+			<nav class="site-nav">
+				<a class="page-link" href="/about">About</a>
+				<a class="page-link" href="mailto:[[config.site.author.email]]?subject=Hello Ed">Contact</a>
+			</nav>
+		</div>
+	</template>
+	<script>
+	Polymer({
+		is: 'site-header',
+		properties: {
+			config: {
+				type: Object,
+			},
+		},
+		observers: []
+	});
+	</script>
+</dom-module>

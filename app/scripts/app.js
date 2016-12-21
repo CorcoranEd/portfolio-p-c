@@ -5,7 +5,6 @@
 
 	app.addEventListener('dom-change', function() {
 		// our app is ready to rock
-
 		var splash = document.getElementById('splash');
 
 		splash.className = 'remove';
