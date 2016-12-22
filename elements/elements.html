@@ -8496,7 +8496,9 @@ this.fire('dom-change');
 
 		<iron-ajax auto="" url="/config.json" handle-as="json" last-response="{{config}}"></iron-ajax>
 
-		<iron-ajax auto="" url="https://cdn.contentful.com/spaces/yqtidmbejnor/entries?access_token=ee9311d83aafe365bcad782063123dbab58daef2bdc504dd2811b2675d562254" handle-as="json" last-response="{{projects}}" loading="{{loading}}"></iron-ajax>
+		
+
+		<iron-ajax auto="" url$="//cdn.contentful.com/spaces/[[config.contentful.space]]/entries?access_token=[[config.contentful.token]]" handle-as="json" last-response="{{projects}}" loading="{{loading}}"></iron-ajax>
 
 
 		<iron-pages attr-for-selected="id" selected="[[pageData.page]]">
@@ -8570,7 +8572,7 @@ this.fire('dom-change');
 		_logData: function() {
 			console.log("API Call — projects", this.projects);
 		}
-		
+
 	});
 	</script>
 </dom-module>
@@ -8637,12 +8639,15 @@ this.fire('dom-change');
 	</template>
 	<script>
 	Polymer({
+
 		is: 'site-header',
+
 		properties: {
 			config: {
 				type: Object,
 			},
 		}
+		
 	});
 	</script>
 </dom-module>
@@ -8693,12 +8698,15 @@ this.fire('dom-change');
 	</template>
 	<script>
 	Polymer({
+
 		is: 'site-footer',
+
 		properties: {
 			config: {
 				type: Object,
 			},
 		},
+
 		elmYPosition: function(eID) {
 			var elm = document.getElementById(eID);
 			var y = elm.offsetTop;
@@ -8709,6 +8717,7 @@ this.fire('dom-change');
 			}
 			return y;
 		},
+
 		currentYPosition: function() {
 			// Firefox, Chrome, Opera, Safari
 			if (self.pageYOffset) return self.pageYOffset;
@@ -8719,6 +8728,7 @@ this.fire('dom-change');
 			if (document.body.scrollTop) return document.body.scrollTop;
 			return 0;
 		},
+
 		smoothScroll: function(e) {
 			this.set("links", false);
 			var eID = e.target.title;
@@ -8764,16 +8774,19 @@ this.fire('dom-change');
 		<content id="content"></content>
 
 		<site-footer config="[[config]]"></site-footer>
-		
+
 	</template>
 	<script>
 	Polymer({
+
 		is: 'site-page',
+
 		properties: {
 			config: {
 				type: Object,
 			},
-		},
+		}
+
 	});
 	</script>
 </dom-module>
@@ -8843,7 +8856,7 @@ this.fire('dom-change');
 		},
 
 		_fetchImageUrl: function(id) {
-			// console.log(id);
+			console.log('this on listing page: ', id, this);
 
 			var length = this.projects.includes.Asset.length;
 
@@ -8935,58 +8948,59 @@ this.fire('dom-change');
 		}
 		</style>
 		<div class="wrapper">
+			<template is="dom-if" if="[[projects]]">
+				<header class="project-header">
+					<h1 class="project-title">[[project.fields.title]]</h1>
+					<p class="project-type">[[project.fields.type]]</p>
+					<p class="project-role">[[project.fields.role]]</p>
+				</header>
 
-			<header class="project-header">
-				<h1 class="project-title">[[project.fields.title]]</h1>
-				<p class="project-type">[[project.fields.type]]</p>
-				<p class="project-role">[[project.fields.role]]</p>
-			</header>
+				<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
 
-			<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+				<img class="project-hero-image" src="[[_fetchImageUrl(project.fields.heroImage.sys.id)]]">
 
-			<img class="project-hero-image" src="[[_fetchImageUrl(project.fields.heroImage.sys.id)]]">
+				<div class="project-details">
+					<div class="project-lists">
+						<template is="dom-if" if="[[project.fields.responsibilities]]">
+							<ul>
+								Responsibilities
+								<template items="[[project.fields.responsibilities]]" is="dom-repeat">
+									<li>[[item]]</li>
+								</template>
+							</ul>
+						</template>
+						<template is="dom-if" if="[[project.fields.deliverables]]">
+							<ul>
+								Deliverables
+								<template items="[[project.fields.deliverables]]" is="dom-repeat">
+									<li>[[item]]</li>
+								</template>
+							</ul>
+						</template>
+						<template is="dom-if" if="[[project.fields.experience]]">
+							<ul>
+								Experience
+								<template items="[[project.fields.experience]]" is="dom-repeat">
+									<li>[[item]]</li>
+								</template>
+							</ul>
+						</template>
+					</div>
 
-			<div class="project-details">
-				<div class="project-lists">
-					<template is="dom-if" if="[[project.fields.responsibilities]]">
-						<ul>
-							Responsibilities
-							<template items="[[project.fields.responsibilities]]" is="dom-repeat">
-								<li>[[item]]</li>
-							</template>
-						</ul>
-					</template>
-					<template is="dom-if" if="[[project.fields.deliverables]]">
-						<ul>
-							Deliverables
-							<template items="[[project.fields.deliverables]]" is="dom-repeat">
-								<li>[[item]]</li>
-							</template>
-						</ul>
-					</template>
-					<template is="dom-if" if="[[project.fields.experience]]">
-						<ul>
-							Experience
-							<template items="[[project.fields.experience]]" is="dom-repeat">
-								<li>[[item]]</li>
-							</template>
-						</ul>
-					</template>
+					<div class="project-copy">
+						<p class="first">[[project.fields.caption]]</p>
+						<p>[[project.fields.body]]</p>
+					</div>
+
+					<div class="project-status">
+						<template is="dom-if" if="[[project.fields.status]]">
+							<a href$="[[project.fields.link]]">[[project.fields.status]]</a>
+						</template>
+					</div>
 				</div>
 
-				<div class="project-copy">
-					<p class="first">[[project.fields.caption]]</p>
-					<p>[[project.fields.body]]</p>
-				</div>
-
-				<div class="project-status">
-					<template is="dom-if" if="[[project.fields.status]]">
-						<a href$="[[project.fields.link]]">[[project.fields.status]]</a>
-					</template>
-				</div>
-			</div>
-
-			<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+				<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+			</template>
 		</div>
 	</template>
 	<script>
