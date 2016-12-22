@@ -38,8 +38,7 @@
 			margin-bottom: 0 !important;
 		}
 		</style>
-		<epic-contentful token="[[config.contentful.token]]" space="[[config.contentful.space]]" entries="{{projects}}" content-type="project" mode="entries">
-		</epic-contentful>
+
 		<div class="wrapper">
 			<header class="project-header">
 				<h1 class="project-title">Projects</h1>
@@ -48,7 +47,7 @@
 				<template is="dom-repeat" items="[[projects.items]]">
 					<li>
 						<a class="project-link" href="/[[item.fields.slug]]">
-							<img src="[[item.fields.heroImage.fields.file.url]]" />
+							<img src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]" />
 							<div>[[item.fields.title]]</div>
 						</a>
 					</li>
@@ -58,21 +57,28 @@
 	</template>
 	<script>
 	Polymer({
+
 		is: 'project-list',
+
 		properties: {
-			config: {
-				type: Object,
-			},
-			projects: {
-				type: Object,
-			},
+			projects: Object
 		},
-		observers: [
-			"projectOutput(projects.*)"
-		],
-		projectOutput: function() {
-			// console.log(this.projects);
+
+		_fetchImageUrl: function(id) {
+			// console.log(id);
+
+			var length = this.projects.includes.Asset.length;
+
+			// console.log(length);
+
+			for (var i = 0; i < length; i++) {
+				if (this.projects.includes.Asset[i].sys.id === id) {
+					return this.projects.includes.Asset[i].fields.file.url;
+				}
+			}
+
 		}
+
 	});
 	</script>
 </dom-module>

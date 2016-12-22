@@ -1,24 +1,20 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<dom-module id="lost-page">
+<dom-module id="site-page">
 	<template>
 		<style include="shared-styles">
 		:root {}
-		
-		.copy {
-			text-align: center;
-		}
 		</style>
+
 		<site-header config="[[config]]"></site-header>
-		<div class="wrapper copy">
-			<marked-element markdown="[[config.site.lost]]">
-				<div class="markdown-html"></div>
-			</marked-element>
-		</div>
+
+		<content id="content"></content>
+
 		<site-footer config="[[config]]"></site-footer>
+		
 	</template>
 	<script>
 	Polymer({
-		is: 'lost-page',
+		is: 'site-page',
 		properties: {
 			config: {
 				type: Object,

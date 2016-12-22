@@ -7,33 +7,33 @@
 			margin-bottom: var(--spacing-unit);
 			height: var(--spacing-unit);
 		}
-		
+
 		#ec-logo {
 			width: var(--spacing-unit);
 			height: auto;
 			margin-right: calc((var(--spacing-unit) / 3) * 2);
 			float: left;
 		}
-		
+
 		.site-title {
 			line-height: var(--spacing-unit);
 			margin-bottom: 0;
 			float: left;
 		}
-		
+
 		.site-title:visited {
 			color: var(--grey-color-dark);
 		}
-		
+
 		.site-nav {
 			float: right;
 			line-height: var(--spacing-unit);
 		}
-		
+
 		.page-link {
 			line-height: var(--base-line-height);
 		}
-		
+
 		.page-link:not(:last-child) {
 			margin-right: calc((var(--spacing-unit) / 3) * 2);
 		}
@@ -56,7 +56,7 @@
 			<a class="site-title" href="/">[[config.site.name]]</a>
 			<nav class="site-nav">
 				<a class="page-link" href="/about">About</a>
-				<a class="page-link" href="mailto:[[config.site.author.email]]?subject=Hello Ed">Contact</a>
+				<a class="page-link" href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">Contact</a>
 			</nav>
 		</div>
 	</template>
@@ -67,8 +67,7 @@
 			config: {
 				type: Object,
 			},
-		},
-		observers: []
+		}
 	});
 	</script>
 </dom-module>

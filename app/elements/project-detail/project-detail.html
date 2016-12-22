@@ -1,87 +1,91 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<dom-module id="project-detail-page">
+
+<dom-module id="project-detail">
 	<template>
 		<style include="shared-styles">
 		:root {}
-		
+
 		.project-header {
 			text-align: center;
 			margin-top: 6.25em;
 			margin-bottom: var(--spacing-unit);
 		}
-		
+
 		.project-title {
 			letter-spacing: -1px;
 			line-height: 1;
 		}
-		
+
 		.project-type {
 			font-size: var(--small-font-size);
 			margin-bottom: .5em;
 		}
-		
+
 		.project-role {
 			font-size: var(--small-font-size);
 			color: var(--grey-color);
 		}
-		
+
 		.project-details {
 			margin: 6.25em 0;
 			display: flex;
 			flex-direction: row;
 		}
-		
+
 		.project-lists,
 		.project-status {
 			flex: 1;
 		}
-		
+
 		.project-lists,
 		.project-copy {
 			margin-right: calc(var(--spacing-unit) * 2);
 		}
-		
+
 		ul {
 			margin-left: 0;
 			list-style: none;
 		}
-		
+
 		li {
 			color: var(--grey-color);
 		}
-		
+
 		.project-status {
 			flex: 1;
 			font-size: 1.4em;
 		}
-		
+
 		a {
 			color: var(--grey-color);
 		}
-		
+
 		a[href] {
 			color: var(--main-color);
 		}
-		
+
 		.project-copy {
 			flex: 3;
 		}
-		
+
 		.first {
 			font-size: 1.875em;
 			line-height: 1.5em;
 			margin-bottom: calc(var(--spacing-unit) / 2);
 		}
 		</style>
-		<site-header config="[[config]]"></site-header>
 		<div class="wrapper">
+
 			<header class="project-header">
 				<h1 class="project-title">[[project.fields.title]]</h1>
 				<p class="project-type">[[project.fields.type]]</p>
 				<p class="project-role">[[project.fields.role]]</p>
 			</header>
-			<project-nav config="[[config]]" project="[[project]]"></project-nav>
-			<img class="project-hero-image" src="[[project.fields.heroImage.fields.file.url]]" />
+
+			<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+
+			<img class="project-hero-image" src="[[_fetchImageUrl(project.fields.heroImage.sys.id)]]" />
+
 			<div class="project-details">
 				<div class="project-lists">
 					<template is="dom-if" if="[[project.fields.responsibilities]]">
@@ -109,31 +113,60 @@
 						</ul>
 					</template>
 				</div>
+
 				<div class="project-copy">
 					<p class="first">[[project.fields.caption]]</p>
 					<p>[[project.fields.body]]</p>
 				</div>
+
 				<div class="project-status">
 					<template is="dom-if" if="[[project.fields.status]]">
 						<a href$="[[project.fields.link]]">[[project.fields.status]]</a>
 					</template>
 				</div>
 			</div>
-			<project-nav config="[[config]]" project="[[project]]"></project-nav>
+
+			<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
 		</div>
-		<site-footer config="[[config]]"></site-footer>
 	</template>
 	<script>
 	Polymer({
-		is: 'project-detail-page',
+
+		is: 'project-detail',
+
 		properties: {
-			config: {
-				type: Object,
-			},
-			project: {
-				type: Object,
-			},
+			config: Object,
+			project: Object,
+			projects: Object,
 		},
+
+		observers: [
+			'_logData(projects)'
+		],
+
+		_logData: function() {
+			console.log("projects data handed down: ", this.projects);
+		},
+
+		_fetchImageUrl: function(id) {
+			console.log(id, this.projects, this);
+
+			if (this.projects){
+
+				var length = this.projects.includes.Asset.length;
+
+				console.log(length);
+
+				for (var i = 0; i < length; i++) {
+					if (this.projects.includes.Asset[i].sys.id === id) {
+						return this.projects.includes.Asset[i].fields.file.url;
+					}
+				}
+
+			}
+
+		}
+
 	});
 	</script>
 </dom-module>

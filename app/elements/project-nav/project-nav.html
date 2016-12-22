@@ -3,18 +3,18 @@
 	<template>
 		<style include="shared-styles">
 		:root {}
-		
+
 		nav {
 			display: flex;
 			flex-direction: row;
 		}
-		
+
 		.prev,
 		.next {
 			flex: 1;
 			font-size: var(--small-font-size);
 		}
-		
+
 		.next {
 			text-align: right;
 		}
@@ -28,28 +28,22 @@
 	</template>
 	<script>
 	Polymer({
+
 		is: 'project-nav',
+
 		properties: {
-			config: {
-				type: Object,
-			},
-			projects: {
-				type: Object,
-			},
-			project: {
-				type: Object,
-			},
-			next: {
-				type: Object,
-			},
-			prev: {
-				type: Object,
-			}
+			config: Object,
+			projects: Object,
+			project: Object,
+			next: Object,
+			prev: Object
 		},
+
 		observers: [
-			"projectOutput(projects.*)"
+			"_projectOutput(projects.*)"
 		],
-		setPrevNext: function(item, index) {
+
+		_setPrevNext: function(item, index) {
 			var next = {};
 			var prev = {};
 			if (item.fields.slug === this.project.fields.slug) {
@@ -59,11 +53,13 @@
 				this.set('prev', prev);
 			}
 		},
-		projectOutput: function() {
+
+		_projectOutput: function() {
 			if (this.projects.items) {
-				this.projects.items.forEach(this.setPrevNext, this)
+				this.projects.items.forEach(this._setPrevNext, this)
 			}
 		}
+		
 	});
 	</script>
 </dom-module>

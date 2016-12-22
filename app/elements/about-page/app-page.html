@@ -1,16 +1,20 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<dom-module id="project-list-page">
+<dom-module id="app-page">
 	<template>
 		<style include="shared-styles">
 		:root {}
 		</style>
+
 		<site-header config="[[config]]"></site-header>
-		<project-list config="[[config]]"></project-list>
+
+		<content id="content"></content>
+
 		<site-footer config="[[config]]"></site-footer>
+		
 	</template>
 	<script>
 	Polymer({
-		is: 'project-list-page',
+		is: 'app-page',
 		properties: {
 			config: {
 				type: Object,

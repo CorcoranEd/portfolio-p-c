@@ -9,7 +9,8 @@
     "iron-pages": "PolymerElements/iron-pages#^1.0.8",
     "marked-element": "PolymerElements/marked-element#^1.2.0",
     "app-layout": "PolymerElements/app-layout#^0.10.6",
-    "neon-animation": "PolymerElements/neon-animation#^1.2.4"
+    "neon-animation": "PolymerElements/neon-animation#^1.2.4",
+    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
