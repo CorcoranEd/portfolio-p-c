@@ -46,12 +46,15 @@
 	</template>
 	<script>
 	Polymer({
+
 		is: 'site-footer',
+
 		properties: {
 			config: {
 				type: Object,
 			},
 		},
+
 		elmYPosition: function(eID) {
 			var elm = document.getElementById(eID);
 			var y = elm.offsetTop;
@@ -62,6 +65,7 @@
 			}
 			return y;
 		},
+
 		currentYPosition: function() {
 			// Firefox, Chrome, Opera, Safari
 			if (self.pageYOffset) return self.pageYOffset;
@@ -72,6 +76,7 @@
 			if (document.body.scrollTop) return document.body.scrollTop;
 			return 0;
 		},
+
 		smoothScroll: function(e) {
 			this.set("links", false);
 			var eID = e.target.title;

@@ -75,58 +75,59 @@
 		}
 		</style>
 		<div class="wrapper">
+			<template is="dom-if" if="[[projects]]">
+				<header class="project-header">
+					<h1 class="project-title">[[project.fields.title]]</h1>
+					<p class="project-type">[[project.fields.type]]</p>
+					<p class="project-role">[[project.fields.role]]</p>
+				</header>
 
-			<header class="project-header">
-				<h1 class="project-title">[[project.fields.title]]</h1>
-				<p class="project-type">[[project.fields.type]]</p>
-				<p class="project-role">[[project.fields.role]]</p>
-			</header>
+				<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
 
-			<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+				<img class="project-hero-image" src="[[_fetchImageUrl(project.fields.heroImage.sys.id)]]" />
 
-			<img class="project-hero-image" src="[[_fetchImageUrl(project.fields.heroImage.sys.id)]]" />
+				<div class="project-details">
+					<div class="project-lists">
+						<template is="dom-if" if="[[project.fields.responsibilities]]">
+							<ul>
+								Responsibilities
+								<template items="[[project.fields.responsibilities]]" is="dom-repeat">
+									<li>[[item]]</li>
+								</template>
+							</ul>
+						</template>
+						<template is="dom-if" if="[[project.fields.deliverables]]">
+							<ul>
+								Deliverables
+								<template items="[[project.fields.deliverables]]" is="dom-repeat">
+									<li>[[item]]</li>
+								</template>
+							</ul>
+						</template>
+						<template is="dom-if" if="[[project.fields.experience]]">
+							<ul>
+								Experience
+								<template items="[[project.fields.experience]]" is="dom-repeat">
+									<li>[[item]]</li>
+								</template>
+							</ul>
+						</template>
+					</div>
 
-			<div class="project-details">
-				<div class="project-lists">
-					<template is="dom-if" if="[[project.fields.responsibilities]]">
-						<ul>
-							Responsibilities
-							<template items="[[project.fields.responsibilities]]" is="dom-repeat">
-								<li>[[item]]</li>
-							</template>
-						</ul>
-					</template>
-					<template is="dom-if" if="[[project.fields.deliverables]]">
-						<ul>
-							Deliverables
-							<template items="[[project.fields.deliverables]]" is="dom-repeat">
-								<li>[[item]]</li>
-							</template>
-						</ul>
-					</template>
-					<template is="dom-if" if="[[project.fields.experience]]">
-						<ul>
-							Experience
-							<template items="[[project.fields.experience]]" is="dom-repeat">
-								<li>[[item]]</li>
-							</template>
-						</ul>
-					</template>
+					<div class="project-copy">
+						<p class="first">[[project.fields.caption]]</p>
+						<p>[[project.fields.body]]</p>
+					</div>
+
+					<div class="project-status">
+						<template is="dom-if" if="[[project.fields.status]]">
+							<a href$="[[project.fields.link]]">[[project.fields.status]]</a>
+						</template>
+					</div>
 				</div>
 
-				<div class="project-copy">
-					<p class="first">[[project.fields.caption]]</p>
-					<p>[[project.fields.body]]</p>
-				</div>
-
-				<div class="project-status">
-					<template is="dom-if" if="[[project.fields.status]]">
-						<a href$="[[project.fields.link]]">[[project.fields.status]]</a>
-					</template>
-				</div>
-			</div>
-
-			<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+				<project-nav config="[[config]]" project="[[project]]" projects="[[projects]]"></project-nav>
+			</template>
 		</div>
 	</template>
 	<script>
