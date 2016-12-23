@@ -19,8 +19,7 @@
 
 		ul {
 			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
+			flex-flow: row wrap;
 			margin: 6.25em 0;
 			list-style: none;
 		}
@@ -37,6 +36,18 @@
 		li:nth-last-child(2) {
 			margin-bottom: 0 !important;
 		}
+
+		@media (max-width: 600px) {
+			ul {
+				margin: 4em 0;
+			}
+
+			li {
+				flex: 1 100%;
+				margin-left: 0 !important;
+				margin-bottom: var(--spacing-unit);
+			}
+		}
 		</style>
 
 		<div class="wrapper">
@@ -47,7 +58,7 @@
 				<template is="dom-repeat" items="[[projects.items]]">
 					<li>
 						<a class="project-link" href="/[[item.fields.slug]]">
-							<img src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]" />
+							<iron-image class="project-hero-image" preload fade src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]"></iron-image>
 							<div>[[item.fields.title]]</div>
 						</a>
 					</li>

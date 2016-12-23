@@ -43,7 +43,8 @@
 										 content-type="project"
 										 mode="entries"></epic-contentful> -->
 
-		<iron-ajax auto url$="//cdn.contentful.com/spaces/[[config.contentful.space]]/entries?access_token=[[config.contentful.token]]"
+		<iron-ajax id="contentful"
+							 url$="//cdn.contentful.com/spaces/[[config.contentful.space]]/entries?access_token=[[config.contentful.token]]"
 							 handle-as="json"
 							 last-response="{{projects}}"
 							 loading="{{loading}}"></iron-ajax>
@@ -102,7 +103,8 @@
 		},
 
 		observers: [
-			'_logData(projects)'
+			'_logData(projects)',
+			'_ajaxRequest(config)'
 		],
 
 		created: function() {
@@ -119,6 +121,10 @@
 
 		_logData: function() {
 			console.log("API Call — projects", this.projects);
+		},
+
+		_ajaxRequest: function() {
+			this.$.contentful.generateRequest()
 		}
 
 	});

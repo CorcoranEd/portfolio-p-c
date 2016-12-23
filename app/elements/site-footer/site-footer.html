@@ -8,7 +8,7 @@
 
 		.footer-content {
 			display: flex;
-			flex-direction: row;
+			flex-flow: row wrap;
 		}
 
 		.back-to-top {
@@ -28,6 +28,24 @@
 
 		.copyright a {
 			color: var(--grey-color-dark);
+		}
+
+		@media (max-width: 800px) {
+			.back-to-top {
+				display: none;
+			}
+
+			.contact-info {
+				flex: 1 100%;
+				margin-right: 0;
+				margin-bottom: var(--spacing-unit);
+			}
+
+			.copyright {
+				flex: 1 100%;
+				color: var(--grey-color);
+				text-align: left;
+			}
 		}
 		</style>
 		<div class="wrapper">

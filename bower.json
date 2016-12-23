@@ -10,7 +10,8 @@
     "marked-element": "PolymerElements/marked-element#^1.2.0",
     "app-layout": "PolymerElements/app-layout#^0.10.6",
     "neon-animation": "PolymerElements/neon-animation#^1.2.4",
-    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1"
+    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
+    "iron-image": "PolymerElements/iron-image#^1.2.5"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
