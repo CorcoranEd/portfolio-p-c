@@ -8320,10 +8320,15 @@ this.fire('dom-change');
 			--grey-color-dark: #424242;
 			--divider: 2px solid var(--primary-color);
 		}
-		/** {
+
+		* {
 			background: rgba(0, 0, 0, 0.1);
 			outline: 1px dotted rgba(0, 0, 0, 0.5);
-		}*/
+		}
+
+		* {
+			box-sizing: border-box;
+		}
 
 		body,
 		h1,
@@ -8453,11 +8458,14 @@ this.fire('dom-change');
 		}
 
 		.wrapper {
-			max-width: calc(var(--content-width) - (var(--spacing-unit) * 2));
+			max-width: calc(var(--content-width) - var(--spacing-unit));
 			margin-right: auto;
 			margin-left: auto;
-			padding-right: var(--spacing-unit);
-			padding-left: var(--spacing-unit);
+		}
+
+		.spacing {
+			padding-left: calc(var(--spacing-unit) / 2);
+			padding-right: calc(var(--spacing-unit) / 2);
 		}
 
 		.page-wrapper {
@@ -8493,6 +8501,18 @@ this.fire('dom-change');
 		.copy {
 			text-align: center;
 		}
+
+		.about-text {
+				max-width: 55%;
+				margin: 6.25em auto;
+		}
+
+		@media (max-width: 800px) {
+			.about-text {
+					max-width: 100%;
+					margin: calc(var(--spacing-unit) / 2);
+			}
+		}
 		</style>
 
 		<app-location route="{{route}}"></app-location>
@@ -8522,9 +8542,11 @@ this.fire('dom-change');
 
 			<site-page id="about" class="page-wrapper" config="[[config]]">
 				<div class="wrapper">
-					<marked-element markdown="[[config.site.about]]">
-						<div class="markdown-html"></div>
-					</marked-element>
+					<div class="about-text">
+						<marked-element markdown="[[config.site.about]]">
+							<div class="markdown-html"></div>
+						</marked-element>
+					</div>
 				</div>
 			</site-page>
 
@@ -8594,7 +8616,7 @@ this.fire('dom-change');
 		:root {
 			padding-top: var(--spacing-unit);
 			margin-bottom: var(--spacing-unit);
-			height: var(--spacing-unit);
+			overflow: auto;
 		}
 
 		#ec-logo {
@@ -8627,7 +8649,7 @@ this.fire('dom-change');
 			margin-right: calc((var(--spacing-unit) / 3) * 2);
 		}
 		</style>
-		<div class="wrapper">
+		<div class="wrapper spacing">
 			<a href="/">
 				<svg id="ec-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100.01">
 					<defs>
@@ -8659,7 +8681,7 @@ this.fire('dom-change');
 				type: Object,
 			},
 		}
-		
+
 	});
 	</script>
 </dom-module>
@@ -8672,20 +8694,22 @@ this.fire('dom-change');
 
 		.footer-content {
 			display: flex;
-			flex-flow: row wrap;
+			flex-flow: row no-wrap;
 		}
 
 		.back-to-top {
+			width: 20%;
 			margin-right: var(--spacing-unit);
 		}
 
 		.contact-info {
-			flex: 1;
+			/*flex: 1;*/
+			width: 55%;
 			margin-right: var(--spacing-unit);
 		}
 
 		.copyright {
-			flex: 1;
+			width: 25%;
 			color: var(--grey-color);
 			text-align: right;
 		}
@@ -8695,29 +8719,33 @@ this.fire('dom-change');
 		}
 
 		@media (max-width: 800px) {
+			.footer-content {
+				flex-flow: row wrap;
+			}
+
 			.back-to-top {
 				display: none;
 			}
 
 			.contact-info {
-				flex: 1 100%;
+				width: 100%;
 				margin-right: 0;
 				margin-bottom: var(--spacing-unit);
 			}
 
 			.copyright {
-				flex: 1 100%;
+				width: 100%;
 				color: var(--grey-color);
 				text-align: left;
 			}
 		}
 		</style>
-		<div class="wrapper">
+		<div class="wrapper spacing">
 			<div class="footer-content">
 				<div class="back-to-top"><a on-tap="smoothScroll" title="app">Back to top</a></div>
 				<div class="contact-info">
 					Like what you see?
-					<br> If you’re interested in working together or want to say hello, shoot me an email at <a href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">[[config.site.author.email]]</a>
+					<br> If you’re interested in working together or just want to say hello, shoot me an email at <a href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">[[config.site.author.email]]</a>
 				</div>
 				<div class="copyright">
 					Designed and built by me using <a href="https://www.polymer-project.org/1.0/">Polymer</a> &amp; <a href="https://www.contentful.com">Contentful</a>
@@ -8838,23 +8866,25 @@ this.fire('dom-change');
 			line-height: 1;
 		}
 
-		ul {
+		.list {
 			display: flex;
 			flex-flow: row wrap;
 			margin: 6.25em 0;
-			list-style: none;
 		}
 
-		li {
-			flex: 1 45%;
+		.list-item {
+			width: 50%;
 		}
 
-		li:nth-child(2n+0) {
-			margin-left: var(--spacing-unit);
+		.list-item-content {
+			padding: 0 calc(var(--spacing-unit) / 2);
+		}
+
+		.list-item:nth-child(2n+0) {
 			margin-bottom: var(--spacing-unit);
 		}
 
-		li:nth-last-child(2) {
+		.list-item:nth-last-child(2) {
 			margin-bottom: 0 !important;
 		}
 
@@ -8872,19 +8902,21 @@ this.fire('dom-change');
 		</style>
 
 		<div class="wrapper">
-			<header class="project-header">
+			<header class="project-header spacing">
 				<h1 class="project-title">Projects</h1>
 			</header>
-			<ul>
+			<div class="list">
 				<template is="dom-repeat" items="[[projects.items]]">
-					<li>
-						<a class="project-link" href="/[[item.fields.slug]]">
-							<iron-image class="project-hero-image" preload="" fade="" src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]"></iron-image>
-							<div>[[item.fields.title]]</div>
-						</a>
-					</li>
+					<div class="list-item">
+						<div class="list-item-content">
+							<a class="project-link" href="/[[item.fields.slug]]">
+								<iron-image class="project-hero-image" preload="" fade="" src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]"></iron-image>
+								<div>[[item.fields.title]]</div>
+							</a>
+						</div>
+					</div>
 				</template>
-			</ul>
+			</div>
 		</div>
 	</template>
 	<script>
@@ -8901,14 +8933,11 @@ this.fire('dom-change');
 
 			var length = this.projects.includes.Asset.length;
 
-			// console.log(length);
-
 			for (var i = 0; i < length; i++) {
 				if (this.projects.includes.Asset[i].sys.id === id) {
 					return this.projects.includes.Asset[i].fields.file.url;
 				}
 			}
-
 		}
 
 	});
@@ -9026,7 +9055,7 @@ this.fire('dom-change');
 		}
 
 		</style>
-		<div class="wrapper">
+		<div class="wrapper spacing">
 			<template is="dom-if" if="[[projects]]">
 				<header class="project-header">
 					<h1 class="project-title">[[project.fields.title]]</h1>
