@@ -8,20 +8,22 @@
 
 		.footer-content {
 			display: flex;
-			flex-flow: row wrap;
+			flex-flow: row no-wrap;
 		}
 
 		.back-to-top {
+			width: 20%;
 			margin-right: var(--spacing-unit);
 		}
 
 		.contact-info {
-			flex: 1;
+			/*flex: 1;*/
+			width: 55%;
 			margin-right: var(--spacing-unit);
 		}
 
 		.copyright {
-			flex: 1;
+			width: 25%;
 			color: var(--grey-color);
 			text-align: right;
 		}
@@ -31,29 +33,33 @@
 		}
 
 		@media (max-width: 800px) {
+			.footer-content {
+				flex-flow: row wrap;
+			}
+
 			.back-to-top {
 				display: none;
 			}
 
 			.contact-info {
-				flex: 1 100%;
+				width: 100%;
 				margin-right: 0;
 				margin-bottom: var(--spacing-unit);
 			}
 
 			.copyright {
-				flex: 1 100%;
+				width: 100%;
 				color: var(--grey-color);
 				text-align: left;
 			}
 		}
 		</style>
-		<div class="wrapper">
+		<div class="wrapper spacing">
 			<div class="footer-content">
 				<div class="back-to-top"><a on-tap="smoothScroll" title="app">Back to top</a></div>
 				<div class="contact-info">
 					Like what you see?
-					<br> If you’re interested in working together or want to say hello, shoot me an email at <a href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">[[config.site.author.email]]</a>
+					<br> If you’re interested in working together or just want to say hello, shoot me an email at <a href="mailto:[[config.site.author.email]]?subject=Hello [[config.site.author.short-name]]">[[config.site.author.email]]</a>
 				</div>
 				<div class="copyright">
 					Designed and built by me using <a href="https://www.polymer-project.org/1.0/">Polymer</a> &amp; <a href="https://www.contentful.com">Contentful</a>

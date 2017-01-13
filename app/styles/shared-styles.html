@@ -26,10 +26,15 @@
 			--grey-color-dark: #424242;
 			--divider: 2px solid var(--primary-color);
 		}
+
 		/** {
 			background: rgba(0, 0, 0, 0.1);
 			outline: 1px dotted rgba(0, 0, 0, 0.5);
 		}*/
+
+		* {
+			box-sizing: border-box;
+		}
 
 		body,
 		h1,
@@ -159,11 +164,14 @@
 		}
 
 		.wrapper {
-			max-width: calc(var(--content-width) - (var(--spacing-unit) * 2));
+			max-width: calc(var(--content-width) - var(--spacing-unit));
 			margin-right: auto;
 			margin-left: auto;
-			padding-right: var(--spacing-unit);
-			padding-left: var(--spacing-unit);
+		}
+
+		.spacing {
+			padding-left: calc(var(--spacing-unit) / 2);
+			padding-right: calc(var(--spacing-unit) / 2);
 		}
 
 		.page-wrapper {

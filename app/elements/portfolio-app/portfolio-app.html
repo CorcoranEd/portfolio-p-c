@@ -20,6 +20,18 @@
 		.copy {
 			text-align: center;
 		}
+
+		.about-text {
+				max-width: 55%;
+				margin: 6.25em auto;
+		}
+
+		@media (max-width: 800px) {
+			.about-text {
+					max-width: 100%;
+					margin: calc(var(--spacing-unit) / 2);
+			}
+		}
 		</style>
 
 		<app-location route="{{route}}"></app-location>
@@ -64,9 +76,11 @@
 
 			<site-page id="about" class="page-wrapper" config="[[config]]">
 				<div class="wrapper">
-					<marked-element markdown="[[config.site.about]]">
-						<div class="markdown-html"></div>
-					</marked-element>
+					<div class="about-text">
+						<marked-element markdown="[[config.site.about]]">
+							<div class="markdown-html"></div>
+						</marked-element>
+					</div>
 				</div>
 			</site-page>
 

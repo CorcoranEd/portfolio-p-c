@@ -17,23 +17,25 @@
 			line-height: 1;
 		}
 
-		ul {
+		.list {
 			display: flex;
 			flex-flow: row wrap;
 			margin: 6.25em 0;
-			list-style: none;
 		}
 
-		li {
-			flex: 1 45%;
+		.list-item {
+			width: 50%;
 		}
 
-		li:nth-child(2n+0) {
-			margin-left: var(--spacing-unit);
+		.list-item-content {
+			padding: 0 calc(var(--spacing-unit) / 2);
+		}
+
+		.list-item:nth-child(2n+0) {
 			margin-bottom: var(--spacing-unit);
 		}
 
-		li:nth-last-child(2) {
+		.list-item:nth-last-child(2) {
 			margin-bottom: 0 !important;
 		}
 
@@ -51,19 +53,21 @@
 		</style>
 
 		<div class="wrapper">
-			<header class="project-header">
+			<header class="project-header spacing">
 				<h1 class="project-title">Projects</h1>
 			</header>
-			<ul>
+			<div class="list">
 				<template is="dom-repeat" items="[[projects.items]]">
-					<li>
-						<a class="project-link" href="/[[item.fields.slug]]">
-							<iron-image class="project-hero-image" preload fade src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]"></iron-image>
-							<div>[[item.fields.title]]</div>
-						</a>
-					</li>
+					<div class="list-item">
+						<div class="list-item-content">
+							<a class="project-link" href="/[[item.fields.slug]]">
+								<iron-image class="project-hero-image" preload fade src="[[_fetchImageUrl(item.fields.heroImage.sys.id)]]"></iron-image>
+								<div>[[item.fields.title]]</div>
+							</a>
+						</div>
+					</div>
 				</template>
-			</ul>
+			</div>
 		</div>
 	</template>
 	<script>
@@ -80,14 +84,11 @@
 
 			var length = this.projects.includes.Asset.length;
 
-			// console.log(length);
-
 			for (var i = 0; i < length; i++) {
 				if (this.projects.includes.Asset[i].sys.id === id) {
 					return this.projects.includes.Asset[i].fields.file.url;
 				}
 			}
-
 		}
 
 	});
